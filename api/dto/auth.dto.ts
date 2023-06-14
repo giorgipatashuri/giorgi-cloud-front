@@ -14,3 +14,6 @@ export interface User {
   password: string;
   fullname: string;
 }
+
+export type RegisterFormDTO = LoginFormDto & { fullname: string };
+export type RegisterResponseDTO = LoginResponseDto;

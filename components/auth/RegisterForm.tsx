@@ -1,16 +1,14 @@
-import { FC } from 'react';
-import styles from './Auth.module.scss';
 import { Button, Form, Input, notification } from 'antd';
-import { LoginFormDto } from '@/api/dto/auth.dto';
+import style from './Auth.module.scss';
+import { RegisterFormDTO } from '@/api/dto/auth.dto';
 import * as Api from '@/api';
 import { setCookie } from 'nookies';
-const LoginForm: FC = () => {
-  const onSubmit = async (values: LoginFormDto) => {
+const RegisterForm = () => {
+  const onSubmit = async (value: RegisterFormDTO) => {
     try {
-      const { accessToken } = await Api.auth.login(values);
-      console.log('test');
+      const { accessToken } = await Api.auth.register(value);
       notification.success({
-        message: 'Success Logined',
+        message: 'Success Registred',
         description: 'Redirect To admin panel',
         duration: 2,
       });
@@ -19,12 +17,24 @@ const LoginForm: FC = () => {
       });
       location.href = '/dashboard';
     } catch (error) {
-      console.log('loginForm', error);
+      console.log('RegisterForm', error);
     }
   };
+
   return (
-    <div className={styles.formBlock}>
-      <Form name='basic' labelCol={{ span: 8 }} onFinish={onSubmit}>
+    <div className={style.formBlock}>
+      <Form name='reg' labelCol={{ span: 8 }} onFinish={onSubmit}>
+        <Form.Item
+          label='fullname'
+          name='fullname'
+          rules={[
+            {
+              required: true,
+              message: 'Please Enter FullName',
+            },
+          ]}>
+          <Input />
+        </Form.Item>
         <Form.Item
           label='E-Mail'
           name='email'
@@ -47,6 +57,7 @@ const LoginForm: FC = () => {
           ]}>
           <Input.Password />
         </Form.Item>
+
         <Form.Item
           wrapperCol={{
             offset: 8,
@@ -60,4 +71,4 @@ const LoginForm: FC = () => {
     </div>
   );
 };
-export default LoginForm;
+export default RegisterForm;
