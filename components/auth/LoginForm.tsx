@@ -1,9 +1,25 @@
 import { FC } from 'react';
 import styles from './Auth.module.scss';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, notification } from 'antd';
+import { LoginFormDto } from '@/api/dto/auth.dto';
+import * as Api from '@/api';
+import { setCookie } from 'nookies';
 const LoginForm: FC = () => {
-  const onSubmit = (values) => {
-    console.log(values);
+  const onSubmit = async (values: LoginFormDto) => {
+    try {
+      const { accessToken } = await Api.auth.login(values);
+      console.log('test');
+      notification.success({
+        message: 'Success Logined',
+        description: 'Redirect To admin panel',
+        duration: 2,
+      });
+      setCookie(null, '_token', accessToken, {
+        path: '/',
+      });
+    } catch (error) {
+      console.log('loginForm', error);
+    }
   };
   return (
     <div className={styles.formBlock}>

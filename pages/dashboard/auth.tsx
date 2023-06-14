@@ -1,22 +1,21 @@
-import LoginForm from "@/components/auth/LoginForm"
-import { Tabs } from "antd"
-import { NextPage } from "next"
-import Head from "next/head"
+import LoginForm from '@/components/auth/LoginForm';
+import { Tabs } from 'antd';
+import { NextPage } from 'next';
+import Head from 'next/head';
 
-
-const AuthPage:NextPage = () => {
+const AuthPage = () => {
   return (
     <>
       <Head>
         <title>Dashboard / Auth</title>
       </Head>
-      <main style={{width:"400px",margin:"auto"}}>
-      <Tabs
+      <main style={{ width: '400px', margin: 'auto' }}>
+        <Tabs
           items={[
             {
               label: 'Login',
               key: '1',
-              children: <LoginForm/>,
+              children: <LoginForm />,
             },
             {
               label: 'register',
@@ -27,6 +26,6 @@ const AuthPage:NextPage = () => {
         />
       </main>
     </>
-  )
-}
-export default AuthPage
+  );
+};
+export default AuthPage;
