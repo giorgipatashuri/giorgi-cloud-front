@@ -8,7 +8,7 @@ const LoginForm: FC = () => {
   const onSubmit = async (values: LoginFormDto) => {
     try {
       const { accessToken } = await Api.auth.login(values);
-      console.log('test');
+      console.log(accessToken);
       notification.success({
         message: 'Success Logined',
         description: 'Redirect To admin panel',

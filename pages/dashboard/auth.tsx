@@ -18,7 +18,7 @@ const AuthPage = () => {
               children: <LoginForm />,
             },
             {
-              label: 'register',
+              label: 'Register',
               key: '2',
               children: <RegisterForm />,
             },
