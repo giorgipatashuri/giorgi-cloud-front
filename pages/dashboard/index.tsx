@@ -1,17 +1,23 @@
-import { GetServerSidePropsContext } from 'next';
+import { GetServerSidePropsContext, NextPage } from 'next';
 import nookies from 'nookies';
-import Head from 'next/head';
 import axios from '@/core/axios';
 import * as Api from '@/api';
-const DashboardPage = () => {
+import { Layout } from '@/layouts/Layout';
+import { ReactElement } from 'react';
+import { NextPageWithLayout } from '../_app';
+
+const DashboardPage: NextPageWithLayout = () => {
   return (
     <>
-      <Head>
-        <title>Dashboard</title>
-      </Head>
-      <main style={{ width: '400px', margin: 'auto' }}></main>
+      <main>
+        <div>dashboard</div>
+      </main>
     </>
   );
+};
+
+DashboardPage.getLayout = function getLayout(page: ReactElement) {
+  return <Layout title='Dashboard'>{page}</Layout>;
 };
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
