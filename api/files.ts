@@ -4,7 +4,7 @@ import { FileItem } from './dto/files.dto';
 type FileType = 'all' | 'photos' | 'trash';
 
 export const getAll = async (type: FileType = 'all'): Promise<FileItem[]> => {
-  const { data } = await axios.post('/api/files?type=' + type);
+  const { data } = await axios.get('/api/files?type=' + type);
   return data;
 };
 export const uploadFile = async (options: any) => {

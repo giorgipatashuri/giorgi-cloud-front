@@ -5,15 +5,22 @@ import { NextPageWithLayout } from '../_app';
 import { checkAuth } from '@/utils/checkAuth';
 
 import style from '@/styles/Home.module.scss';
-import { Button, Menu } from 'antd';
+import { Menu } from 'antd';
 import { useRouter } from 'next/router';
-import { DeleteOutlined, FileImageOutlined, FileOutlined } from '@ant-design/icons';
+import { FileImageOutlined, FileOutlined } from '@ant-design/icons';
 import { UploadButton } from '@/components/UploadButton/UploadButton';
 
-const DashboardPage: NextPageWithLayout = () => {
+import * as Api from '@/api';
+import { FileItem } from '@/api/dto/files.dto';
+import FileList from '@/components/FileList/FileList';
+
+interface DashboardPageProps {
+  items: FileItem[];
+}
+
+const DashboardPage: NextPageWithLayout<DashboardPageProps> = ({ items }) => {
   const router = useRouter();
   const selectedMenu = router.pathname;
-
   return (
     <>
       <main className={style.dashboardContainer}>
@@ -36,14 +43,11 @@ const DashboardPage: NextPageWithLayout = () => {
                 label: `Photos`,
                 onClick: () => router.push('/dashboard/photos'),
               },
-              {
-                key: `/dashboard/trash`,
-                icon: <DeleteOutlined />,
-                label: `Trash`,
-                onClick: () => router.push('/dashboard/trash'),
-              },
             ]}
           />
+        </div>
+        <div className='container'>
+          <FileList items={items} />
         </div>
       </main>
     </>
@@ -60,9 +64,20 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   if ('redirect' in authProps) {
     return authProps;
   }
-  return {
-    props: {},
-  };
+  try {
+    const items = await Api.files.getAll();
+
+    return {
+      props: {
+        items,
+      },
+    };
+  } catch (err) {
+    console.log(err);
+    return {
+      props: { items: [] },
+    };
+  }
 };
 
 export default DashboardPage;
