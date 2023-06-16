@@ -9,9 +9,9 @@ interface FileCardProps {
   originalName: string;
 }
 const FileCard: FC<FileCardProps> = ({ filename, originalName }) => {
-  const url = process.env.API_URL || 'http://localhost:8888/';
   const ext = getFileExtension(filename);
-  const imgUrl = ext && isImage(ext) ? `${url}uploads/${filename}` : '';
+  const imgUrl =
+    ext && isImage(ext) ? `https://panicky-bee-parka.cyclic.app/uploads/${filename}` : '';
   const color = getColorByExtension(ext);
   const classColor = style[color];
   return (

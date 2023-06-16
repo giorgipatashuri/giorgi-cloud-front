@@ -1,9 +1,7 @@
 import axios, { InternalAxiosRequestConfig } from 'axios';
 import { parseCookies } from 'nookies';
 
-const url = process.env.API_URL || 'http://localhost:8888/';
-
-axios.defaults.baseURL = url;
+axios.defaults.baseURL = 'https://panicky-bee-parka.cyclic.app/';
 
 axios.interceptors.request.use((config: any): any => {
   if (typeof window !== 'undefined') {
