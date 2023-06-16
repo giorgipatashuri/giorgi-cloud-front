@@ -10,6 +10,7 @@ import { destroyCookie } from 'nookies';
 
 export const login = async (values: LoginFormDto): Promise<LoginResponseDto> => {
   const { data } = await axios.post('/api/auth/login', values);
+  console.log(process.env.NEST_API)
   return data;
 };
 
